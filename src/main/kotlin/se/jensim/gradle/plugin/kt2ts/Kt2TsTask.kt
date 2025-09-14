@@ -5,6 +5,7 @@ import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 import se.jensim.gradle.plugin.kt2ts.internal.*
+import org.gradle.api.tasks.Input
 import java.io.File
 
 open class Kt2TsTask : DefaultTask() {
@@ -16,6 +17,7 @@ open class Kt2TsTask : DefaultTask() {
 
     private val extension by lazy { project.extensions.getByType(Kt2TsPluginExtension::class.java) }
     private val classFinder by lazy { Kt2TsClassFinderImpl(getSourceFiles()) }
+    @Input
     internal var overrideService: Kt2TsService? = null
     private val service: Kt2TsService by lazy { overrideService ?: Kt2TsServiceImpl(classFinder, Kt2TsTypeScriptWriterImpl()) }
 
